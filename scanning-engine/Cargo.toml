@@ -1,0 +1,9 @@
+[package]
+name = "scanning-engine"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+yara-x = "1.19.0"
+regex = "1"
+thiserror = "2"

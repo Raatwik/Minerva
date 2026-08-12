@@ -4,9 +4,9 @@
 
 **Blocked by:** None — can start immediately
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Set up `yara-rust` bindings and load basic rules
-- [ ] Implement Shannon Entropy calculation over byte streams
-- [ ] Create scanning pipeline that takes a file stream and returns pass/fail
-- [ ] Add unit tests with benign and mock-malicious byte streams
+- [x] Set up `yara-rust` bindings and load basic rules
+- [x] Implement Shannon Entropy calculation over byte streams
+- [x] Create scanning pipeline that takes a file stream and returns pass/fail
+- [x] Add unit tests with benign and mock-malicious byte streams

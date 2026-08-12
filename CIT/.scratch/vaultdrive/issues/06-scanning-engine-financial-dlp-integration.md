@@ -4,9 +4,9 @@
 
 **Blocked by:** 05 — Scanning Engine: YARA & Entropy Integration
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Add regex scanning module to the pipeline
-- [ ] Implement patterns for Credit Cards, IBANs, and SWIFT codes
-- [ ] Ensure DLP flags the stream as 'fail' on match
-- [ ] Add unit tests with synthetic financial data
+- [x] Add regex scanning module to the pipeline
+- [x] Implement patterns for Credit Cards, IBANs, and SWIFT codes
+- [x] Ensure DLP flags the stream as 'fail' on match
+- [x] Add unit tests with synthetic financial data
