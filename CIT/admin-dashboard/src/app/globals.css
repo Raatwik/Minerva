@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-inter);
+  --color-vault-950: #020617;
+  --color-vault-900: #0f172a;
+  --color-vault-800: #1e293b;
+  --color-vault-700: #334155;
+  --color-vault-400: #94a3b8;
+  --color-vault-300: #cbd5e1;
+  --color-vault-200: #e2e8f0;
+}
+
+/* Smooth scrolling and selection */
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: rgba(99, 102, 241, 0.3);
+}
+
+/* Subtle glow keyframe for status indicators */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Card hover lift */
+@keyframes float-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float-in {
+  animation: float-in 0.5s ease-out forwards;
+}
+
+.animate-float-in-delay {
+  animation: float-in 0.5s ease-out 0.15s forwards;
+  opacity: 0;
+}
