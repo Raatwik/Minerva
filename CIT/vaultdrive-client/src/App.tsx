@@ -31,6 +31,16 @@ interface TransferResult {
   success: boolean;
   bytes_copied: number;
   message: string;
+  blocked?: boolean;
+  reasons?: string[];
+  quarantine_path?: string | null;
+}
+
+interface UpdateResult {
+  found: boolean;
+  applied: number;
+  deleted: number;
+  messages: string[];
 }
 
 interface Toast {
@@ -207,6 +217,23 @@ export default function App() {
       });
       setLockedVolume(vol);
       addToast("success", `Drive locked: ${vol.original_letter} → ${vol.guid.slice(0, 30)}…`);
+
+      // Check for intelligence updates on the USB
+      try {
+        const updateResult: UpdateResult = await invoke("check_and_apply_updates", {
+          volumeGuid: vol.guid,
+        });
+        if (updateResult.found && updateResult.applied > 0) {
+          addToast(
+            "success",
+            `Applied ${updateResult.applied} intelligence update(s). Scanning rules refreshed.`
+          );
+        } else if (updateResult.found && updateResult.applied === 0) {
+          addToast("info", "Update packages found but none were valid.");
+        }
+      } catch (e) {
+        addToast("error", `Intelligence update check failed: ${e}`);
+      }
     } catch (e) {
       addToast("error", `Lockdown failed: ${e}`);
     } finally {
@@ -295,6 +322,17 @@ export default function App() {
         } else {
           loadLocalDir(localPath);
         }
+      } else if (result.blocked) {
+        const reasonList =
+          result.reasons && result.reasons.length > 0
+            ? result.reasons.join(" • ")
+            : "Policy violation";
+        addToast(
+          "error",
+          `Transfer BLOCKED by scanning engine — ${reasonList}. File quarantined.`
+        );
+      } else {
+        addToast("error", result.message || "Transfer failed.");
       }
     } catch (e) {
       addToast("error", `Transfer failed: ${e}`);

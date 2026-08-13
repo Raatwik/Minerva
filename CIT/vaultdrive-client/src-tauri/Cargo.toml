@@ -19,6 +19,7 @@ serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 tokio = { version = "1", features = ["full"] }
 chrono = { version = "0.4", features = ["serde"] }
+scanning-engine = { path = "../../scanning-engine" }
 
 [target.'cfg(windows)'.dependencies]
 windows-sys = { version = "0.59", features = [

@@ -51,6 +51,7 @@ pub fn run() {
             commands::read_vault_directory,
             commands::read_local_directory,
             commands::copy_file,
+            commands::check_and_apply_updates,
             commands::unlock_drive,
             commands::unlock_all_drives,
         ])

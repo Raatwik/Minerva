@@ -1,13 +1,20 @@
 use regex::Regex;
+use serde::{Deserialize, Serialize};
 
 pub struct DlpScanner {
     patterns: Vec<DlpPattern>,
 }
 
 struct DlpPattern {
-    name: &'static str,
+    name: String,
     regex: Regex,
     validator: Option<fn(&str) -> bool>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct DlpPatternConfig {
+    pub name: String,
+    pub regex: String,
 }
 
 impl DlpScanner {
@@ -15,22 +22,40 @@ impl DlpScanner {
         Self {
             patterns: vec![
                 DlpPattern {
-                    name: "credit_card",
+                    name: "credit_card".to_string(),
                     regex: Regex::new(r"\b(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|6(?:011|5[0-9]{2})[0-9]{12})\b").unwrap(),
                     validator: Some(luhn_check),
                 },
                 DlpPattern {
-                    name: "iban",
+                    name: "iban".to_string(),
                     regex: Regex::new(r"\b[A-Z]{2}\d{2}[A-Z0-9]{4}\d{7}(?:[A-Z0-9]{0,18})\b").unwrap(),
                     validator: None,
                 },
                 DlpPattern {
-                    name: "swift_code",
+                    name: "swift_code".to_string(),
                     regex: Regex::new(r"\b[A-Z]{6}[A-Z0-9]{2}(?:[A-Z0-9]{3})?\b").unwrap(),
                     validator: None,
                 },
             ],
         }
+    }
+
+    pub fn with_patterns(configs: &[DlpPatternConfig]) -> Result<Self, String> {
+        let mut patterns = Vec::new();
+        for cfg in configs {
+            let regex = Regex::new(&cfg.regex)
+                .map_err(|e| format!("Invalid regex for pattern '{}': {}", cfg.name, e))?;
+            patterns.push(DlpPattern {
+                name: cfg.name.clone(),
+                regex,
+                validator: if cfg.name == "credit_card" {
+                    Some(luhn_check)
+                } else {
+                    None
+                },
+            });
+        }
+        Ok(Self { patterns })
     }
 
     pub fn scan(&self, data: &[u8]) -> DlpScanResult {

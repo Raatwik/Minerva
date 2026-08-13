@@ -3,6 +3,7 @@ pub mod entropy;
 pub mod yara_scan;
 
 use dlp::{DlpFinding, DlpScanner};
+pub use dlp::DlpPatternConfig;
 use yara_scan::YaraScanner;
 
 #[derive(Debug, thiserror::Error)]
@@ -30,6 +31,15 @@ impl ScanPipeline {
         Ok(Self {
             yara: YaraScanner::with_rules(rules)?,
             dlp: DlpScanner::new(),
+        })
+    }
+
+    pub fn with_config(yara_rules: &str, dlp_patterns: &[DlpPatternConfig]) -> Result<Self, ScanError> {
+        let dlp = DlpScanner::with_patterns(dlp_patterns)
+            .map_err(|e| ScanError::YaraCompile(format!("DLP config error: {}", e)))?;
+        Ok(Self {
+            yara: YaraScanner::with_rules(yara_rules)?,
+            dlp,
         })
     }
 
