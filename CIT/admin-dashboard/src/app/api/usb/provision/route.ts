@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
+import os from "os";
 import path from "path";
 import { exec } from "child_process";
 import util from "util";
@@ -9,6 +10,12 @@ const execPromise = util.promisify(exec);
 const DATA_DIR = path.join(process.cwd(), "data");
 const KEY_FILE = path.join(DATA_DIR, "master.key");
 const META_FILE = path.join(DATA_DIR, "master.meta.json");
+
+// Mirror of the path used in lib.rs — keeps the Tauri client in sync.
+const APPDATA = process.env.APPDATA ?? path.join(os.homedir(), "AppData", "Roaming");
+const TAURI_KEY_DIR = path.join(APPDATA, "com.vaultdrive.client", "data");
+const TAURI_KEY_FILE = path.join(TAURI_KEY_DIR, "master.key");
+const TAURI_META_FILE = path.join(TAURI_KEY_DIR, "master.meta.json");
 
 export async function POST(request: Request) {
   try {
@@ -55,13 +62,25 @@ export async function POST(request: Request) {
     fs.mkdirSync(path.join(vaultDrivePath, "quarantine"), { recursive: true });
     fs.mkdirSync(path.join(vaultDrivePath, "updates"), { recursive: true });
 
-    // Write the Master Key
+    // Write the Master Key to the USB
     const destKeyPath = path.join(vaultDrivePath, "master.key");
     fs.writeFileSync(destKeyPath, masterKey, { encoding: "utf-8" });
 
     // Copy metadata alongside it
     if (fs.existsSync(META_FILE)) {
       fs.copyFileSync(META_FILE, path.join(vaultDrivePath, "master.meta.json"));
+    }
+
+    // Also sync to the Tauri client's AppData directory so the receiver app
+    // is always in lockstep with the USB — no manual copy needed.
+    try {
+      fs.mkdirSync(TAURI_KEY_DIR, { recursive: true });
+      fs.writeFileSync(TAURI_KEY_FILE, masterKey, { encoding: "utf-8" });
+      if (fs.existsSync(META_FILE)) {
+        fs.copyFileSync(META_FILE, TAURI_META_FILE);
+      }
+    } catch (syncErr) {
+      console.warn("[VaultDrive] Could not sync key to Tauri AppData dir:", syncErr);
     }
 
     // Write a provisioning manifest
