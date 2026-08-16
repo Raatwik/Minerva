@@ -4,7 +4,7 @@
 <h3>Zero-Trust Offline Airlock for Banking Infrastructure</h3>
 
 <p>
-  A cryptographically secured, air-gapped file transfer system that enforces zero-trust security on every USB interaction — built for high-assurance banking environments where network connectivity cannot be trusted.
+  A cryptographically secured, air-gapped file transfer system that enforces zero-trust security on every USB interaction - built for high-assurance banking environments where network connectivity cannot be trusted.
 </p>
 
 <p>
@@ -23,21 +23,21 @@
 <table>
   <tr>
     <td align="center">
-      <img src="docs/screenshots/admin_dashboard.jpg" width="480" alt="VaultDrive Admin Dashboard — Root of Trust & USB Provisioning"/>
+      <img src="docs/screenshots/admin_dashboard.jpg" width="480" alt="VaultDrive Admin Dashboard - Root of Trust & USB Provisioning"/>
       <br/>
-      <sub><b>Admin Dashboard</b> — Root of Trust &amp; USB Provisioning</sub>
+      <sub><b>Admin Dashboard</b> - Root of Trust &amp; USB Provisioning</sub>
     </td>
     <td align="center">
-      <img src="docs/screenshots/threat_intelligence.jpg" width="480" alt="Threat Intelligence — YARA Rules & DLP Pattern Editor"/>
+      <img src="docs/screenshots/threat_intelligence.jpg" width="480" alt="Threat Intelligence - YARA Rules & DLP Pattern Editor"/>
       <br/>
-      <sub><b>Threat Intelligence</b> — YARA Rules &amp; DLP Pattern Editor</sub>
+      <sub><b>Threat Intelligence</b> - YARA Rules &amp; DLP Pattern Editor</sub>
     </td>
   </tr>
   <tr>
     <td align="center" colspan="2">
-      <img src="docs/screenshots/client_file_browser.jpg" width="600" alt="VaultDrive Client — Dual-Pane Secure File Browser (Tauri)"/>
+      <img src="docs/screenshots/client_file_browser.jpg" width="600" alt="VaultDrive Client - Dual-Pane Secure File Browser (Tauri)"/>
       <br/>
-      <sub><b>VaultDrive Client</b> — Dual-Pane Secure File Browser (Tauri Desktop App)</sub>
+      <sub><b>VaultDrive Client</b> - Dual-Pane Secure File Browser (Tauri Desktop App)</sub>
     </td>
   </tr>
 </table>
@@ -46,11 +46,11 @@
 
 ## What is VaultDrive?
 
-Banking networks operate under strict regulatory compliance — data movement in and out of air-gapped systems must be **auditable, tamper-evident, and cryptographically authenticated**. VaultDrive replaces ad-hoc USB transfers with an **end-to-end controlled airlock**:
+Banking networks operate under strict regulatory compliance - data movement in and out of air-gapped systems must be **auditable, tamper-evident, and cryptographically authenticated**. VaultDrive replaces ad-hoc USB transfers with an **end-to-end controlled airlock**:
 
-1. A **256-bit Master Key** anchors every trust decision — no key match, no transfer.
+1. A **256-bit Master Key** anchors every trust decision - no key match, no transfer.
 2. Every file passing through is **scanned by a three-layer threat engine** (YARA rules, Shannon entropy analysis, and financial DLP pattern matching).
-3. Every action — transfer, block, quarantine, or update — is **immutably logged** to a JSON audit trail stored on the USB itself.
+3. Every action - transfer, block, quarantine, or update - is **immutably logged** to a JSON audit trail stored on the USB itself.
 4. Security rules can be **updated offline** via cryptographically-bound update packages, transported by the same USB medium.
 
 > **Target Environment:** Air-gapped Windows workstations in banking back-office or core-banking infrastructure.
@@ -143,7 +143,7 @@ CIT/
 │
 ├── scanning-engine/          # Rust library crate (threat detection)
 │   └── src/
-│       ├── lib.rs            # ScanPipeline — main entry point
+│       ├── lib.rs            # ScanPipeline - main entry point
 │       ├── yara_scan.rs      # YARA-X rule matching
 │       ├── entropy.rs        # Shannon entropy analysis
 │       └── dlp.rs            # Financial DLP (CC, IBAN, SWIFT)
@@ -158,26 +158,26 @@ CIT/
 
 ## Feature Breakdown
 
-### Admin Dashboard — 4-Section Security Console
+### Admin Dashboard - 4-Section Security Console
 
 | Section                      | Capability                                                                                                                                                                       |
 | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **01 · Root of Trust**       | Generate & regenerate a 256-bit cryptographic Master Key. Displays the key fingerprint (truncated hex) and generation timestamp. The key anchors all downstream trust decisions. |
 | **02 · USB Provisioning**    | Enumerate connected removable drives, select a target, inject the Master Key, and scaffold the hidden `.vaultdrive/` directory structure on the USB.                             |
-| **03 · Compliance Logs**     | Import `*.json` transfer logs from a USB drive. Visualizes every transfer attempt — **PASSED** / **BLOCKED** — with associated YARA match reasons and timestamps.                |
+| **03 · Compliance Logs**     | Import `*.json` transfer logs from a USB drive. Visualizes every transfer attempt - **PASSED** / **BLOCKED** - with associated YARA match reasons and timestamps.                |
 | **04 · Threat Intelligence** | Edit YARA detection rules and DLP regex patterns inline. Push a signed update package to `.vaultdrive/updates/` on the USB for offline propagation to receiver machines.         |
 
-### VaultDrive Client — Air-Gapped Receiver
+### VaultDrive Client - Air-Gapped Receiver
 
 | Feature                    | Detail                                                                                                                                                                                                                   |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **USB Lockdown**           | On insertion, verifies the Master Key fingerprint. On match, removes the drive letter from Windows Explorer (via `diskpart`) and accesses the volume exclusively through its GUID path — invisible to standard OS tools. |
+| **USB Lockdown**           | On insertion, verifies the Master Key fingerprint. On match, removes the drive letter from Windows Explorer (via `diskpart`) and accesses the volume exclusively through its GUID path - invisible to standard OS tools. |
 | **Dual-Pane File Browser** | Left pane: Local Host filesystem. Right pane: VaultDrive (USB). Navigate, select, and transfer files in a purpose-built, minimal UI.                                                                                     |
 | **Pre-Transfer Scanning**  | Every file staged for transfer is passed through the full `ScanPipeline` before any byte is copied. Blocked files are quarantined; the user sees a detailed toast notification.                                          |
 | **Audit Logging**          | Every transfer attempt (passed or blocked) writes a timestamped JSON event to `.vaultdrive/logs/` on the USB, available for admin ingestion later.                                                                       |
 | **Intelligence Ingestion** | On drive lockdown, the client auto-detects `*.json` update packages in `.vaultdrive/updates/`, validates rules (test-compiles YARA, test-builds DLP regexes), applies them, and deletes the package from USB.            |
 
-### Scanning Engine — Three-Layer Threat Detection
+### Scanning Engine - Three-Layer Threat Detection
 
 | Layer                | Mechanism                           | Detects                                                                                                              |
 | -------------------- | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
@@ -252,7 +252,7 @@ USB Root/
 
 ---
 
-## API Reference — Admin Dashboard
+## API Reference - Admin Dashboard
 
 | Endpoint                | Method | Description                                                   |
 | ----------------------- | ------ | ------------------------------------------------------------- |
@@ -333,15 +333,15 @@ cargo test
 Follow this sequence to verify the full system from key provisioning to threat detection:
 
 ```
-Step 1 — Key Generation
+Step 1 - Key Generation
   Open Admin Dashboard → Section 01 → Click "Regenerate Master Key"
   ✓ Verify fingerprint and timestamp appear
 
-Step 2 — USB Provisioning
+Step 2 - USB Provisioning
   Insert a USB drive → Section 02 → Select drive → Click "Provision Selected Drive"
   ✓ Verify .vaultdrive/ structure created on USB
 
-Step 3 — Malicious File Transfer Attempt
+Step 3 - Malicious File Transfer Attempt
   Open VaultDrive Client → Insert provisioned USB
   Create a file containing the EICAR test string:
     X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*
@@ -350,11 +350,11 @@ Step 3 — Malicious File Transfer Attempt
   ✓ Verify file appears in .vaultdrive/quarantine/
   ✓ Verify log entry written to .vaultdrive/logs/
 
-Step 4 — Compliance Log Ingestion
+Step 4 - Compliance Log Ingestion
   Return USB to Admin machine → Section 03 → Click "Import Logs from USB"
   ✓ Verify blocked transfer appears with YARA match reason
 
-Step 5 — Threat Intelligence Update
+Step 5 - Threat Intelligence Update
   Section 04 → Edit a YARA rule → Click "Push Updates to USB"
   ✓ Verify update package written to .vaultdrive/updates/
   Plug USB back into receiver → lock the drive in the client
@@ -372,7 +372,7 @@ Step 5 — Threat Intelligence Update
 | **Defense in Depth**      | Three independent scanning layers (YARA + Entropy + DLP) must all pass before a file is allowed through.              |
 | **Immutable Audit Trail** | Every transfer event is timestamped, written to USB-resident JSON logs, and cannot be altered by the receiver client. |
 | **Offline Updatability**  | Security rules are distributed as signed offline packages, maintaining security posture without network connectivity. |
-| **Fail-Safe Quarantine**  | Any file that fails scanning is quarantined (not deleted) — preserving forensic evidence while preventing execution.  |
+| **Fail-Safe Quarantine**  | Any file that fails scanning is quarantined (not deleted) - preserving forensic evidence while preventing execution.  |
 
 ---
 
@@ -380,29 +380,29 @@ Step 5 — Threat Intelligence Update
 
 | #   | Component         | Feature                                                    | Status  |
 | --- | ----------------- | ---------------------------------------------------------- | ------- |
-| 1   | Admin Dashboard   | Root of Trust — Master Key generation                      | ✅ Done |
-| 2   | Admin Dashboard   | USB Provisioning — inject key, scaffold `.vaultdrive/`     | ✅ Done |
-| 3   | VaultDrive Client | USB Detection & Lockdown — verify key, remove drive letter | ✅ Done |
-| 4   | VaultDrive Client | Dual-Pane Secure File Browser — GUID-based browsing        | ✅ Done |
+| 1   | Admin Dashboard   | Root of Trust - Master Key generation                      | ✅ Done |
+| 2   | Admin Dashboard   | USB Provisioning - inject key, scaffold `.vaultdrive/`     | ✅ Done |
+| 3   | VaultDrive Client | USB Detection & Lockdown - verify key, remove drive letter | ✅ Done |
+| 4   | VaultDrive Client | Dual-Pane Secure File Browser - GUID-based browsing        | ✅ Done |
 | 5   | Scanning Engine   | YARA-X integration                                         | ✅ Done |
 | 6   | Scanning Engine   | Financial DLP (credit card, IBAN, SWIFT)                   | ✅ Done |
-| 7   | VaultDrive Client | Transfer Interception & Quarantine — scan before copy      | ✅ Done |
-| 8   | Admin Dashboard   | Compliance Log Ingestion — manual import from USB          | ✅ Done |
-| 9   | Admin Dashboard   | Threat Intelligence Dispensing — push YARA/DLP to USB      | ✅ Done |
-| 10  | VaultDrive Client | Intelligence Update Ingestion — validate, apply, delete    | ✅ Done |
+| 7   | VaultDrive Client | Transfer Interception & Quarantine - scan before copy      | ✅ Done |
+| 8   | Admin Dashboard   | Compliance Log Ingestion - manual import from USB          | ✅ Done |
+| 9   | Admin Dashboard   | Threat Intelligence Dispensing - push YARA/DLP to USB      | ✅ Done |
+| 10  | VaultDrive Client | Intelligence Update Ingestion - validate, apply, delete    | ✅ Done |
 
 ---
 
 ## Use Case & Threat Model
 
-**Threat Model — What VaultDrive Defends Against:**
+**Threat Model - What VaultDrive Defends Against:**
 
 | Attack Vector                                  | Mitigation                                                                         |
 | ---------------------------------------------- | ---------------------------------------------------------------------------------- |
 | Exfiltration of PII / Financial data via USB   | DLP scanning blocks files containing card numbers, IBANs, SWIFT codes              |
 | Introduction of malware via USB                | YARA rules block known malware signatures; entropy flags packed/encrypted payloads |
 | Unauthorized USB drive usage                   | Master Key verification ensures only admin-provisioned drives are accepted         |
-| Drive letter spoofing / Explorer access        | Drive letter removed; access via Volume GUID only — invisible to standard tools    |
+| Drive letter spoofing / Explorer access        | Drive letter removed; access via Volume GUID only - invisible to standard tools    |
 | Tampered audit logs                            | Logs are USB-resident and read-only from the receiver's perspective                |
 | Stale threat signatures on air-gapped machines | Offline update loop propagates new rules without network connectivity              |
 
