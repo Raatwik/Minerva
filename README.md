@@ -10,7 +10,7 @@
 <p>
   <img src="https://img.shields.io/badge/version-0.3.0-orange?style=for-the-badge" alt="Version">
   <img src="https://img.shields.io/badge/platform-Windows-blue?style=for-the-badge&logo=windows" alt="Platform">
-  <img src="https://img.shields.io/badge/status-Production%20Ready-brightgreen?style=for-the-badge" alt="Status">
+  <img src="https://img.shields.io/badge/status-Prototype%20underway-brightgreen?style=for-the-badge" alt="Status">
   <img src="https://img.shields.io/badge/security-YARA%20%2B%20DLP%20%2B%20Entropy-red?style=for-the-badge" alt="Security">
 </p>
 
