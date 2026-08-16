@@ -9,8 +9,8 @@
 
 <p>
   <img src="https://img.shields.io/badge/version-0.3.0-orange?style=for-the-badge" alt="Version">
-  <img src="https://img.shields.io/badge/platform-Windows%20+%20Linux-blue?style=for-the-badge&logo=windows" alt="Platform">
-  <img src="https://img.shields.io/badge/status-Prototype%20underway-brightgreen?style=for-the-badge" alt="Status">
+  <img src="https://img.shields.io/badge/platform-Windows-blue?style=for-the-badge&logo=windows" alt="Platform">
+  <img src="https://img.shields.io/badge/status-Production%20Ready-brightgreen?style=for-the-badge" alt="Status">
   <img src="https://img.shields.io/badge/security-YARA%20%2B%20DLP%20%2B%20Entropy-red?style=for-the-badge" alt="Security">
 </p>
 
@@ -44,9 +44,9 @@
 
 ---
 
-## What is VaultDrive?
+## What is Minerva?
 
-Banking networks operate under strict regulatory compliance - data movement in and out of air-gapped systems must be **auditable, tamper-evident, and cryptographically authenticated**. VaultDrive replaces ad-hoc USB transfers with an **end-to-end controlled airlock**:
+Banking networks operate under strict regulatory compliance - data movement in and out of air-gapped systems must be **auditable, tamper-evident, and cryptographically authenticated**. Minerva replaces ad-hoc USB transfers with an **end-to-end controlled airlock**:
 
 1. A **256-bit Master Key** anchors every trust decision - no key match, no transfer.
 2. Every file passing through is **scanned by a three-layer threat engine** (YARA rules, Shannon entropy analysis, and financial DLP pattern matching).
@@ -395,7 +395,7 @@ Step 5 - Threat Intelligence Update
 
 ## Use Case & Threat Model
 
-**Threat Model - What VaultDrive Defends Against:**
+**Threat Model - What Minerva Defends Against:**
 
 | Attack Vector                                  | Mitigation                                                                         |
 | ---------------------------------------------- | ---------------------------------------------------------------------------------- |
@@ -410,5 +410,5 @@ Step 5 - Threat Intelligence Update
 
 ---
 
-<div align="center"> · VaultDrive v0.3.0 · Zero-Trust Offline Airlock for Banking Infrastructure</sub>
+<div align="center"> · Minerva v0.3.0-beta · Zero-Trust Offline Airlock for Banking Infrastructure</sub>
 </div>
