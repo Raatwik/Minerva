@@ -23,19 +23,19 @@
 <table>
   <tr>
     <td align="center">
-      <img src="docs/screenshots/admin_dashboard.jpg" width="480" alt="VaultDrive Admin Dashboard - Root of Trust & USB Provisioning"/>
+      <img src="https://github.com/Raatwik/Minerva/blob/main/assets/VaultDriveAdmin.png" width="480" alt="VaultDrive Admin Dashboard - Root of Trust & USB Provisioning"/>
       <br/>
       <sub><b>Admin Dashboard</b> - Root of Trust &amp; USB Provisioning</sub>
     </td>
     <td align="center">
-      <img src="docs/screenshots/threat_intelligence.jpg" width="480" alt="Threat Intelligence - YARA Rules & DLP Pattern Editor"/>
+      <img src="https://github.com/Raatwik/Minerva/blob/main/assets/VaultDriveThreatIntelligence.png" width="480" alt="Threat Intelligence - YARA Rules & DLP Pattern Editor"/>
       <br/>
       <sub><b>Threat Intelligence</b> - YARA Rules &amp; DLP Pattern Editor</sub>
     </td>
   </tr>
   <tr>
     <td align="center" colspan="2">
-      <img src="docs/screenshots/client_file_browser.jpg" width="600" alt="VaultDrive Client - Dual-Pane Secure File Browser (Tauri)"/>
+      <img src="https://github.com/Raatwik/Minerva/blob/main/assets/VaultDrive.png" width="600" alt="VaultDrive Client - Dual-Pane Secure File Browser (Tauri)"/>
       <br/>
       <sub><b>VaultDrive Client</b> - Dual-Pane Secure File Browser (Tauri Desktop App)</sub>
     </td>
